@@ -1,0 +1,97 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block body %}
+<style>
+    .adminlog {
+        background: #111;
+    }
+
+    .adminlog .heading {
+        color: #fff;
+    }
+
+    .adminlog .row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .adminlog .row form {
+        flex: 1 1 50rem;
+        background: #222;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+        align-items: flex-start;
+    }
+
+    .adminlog .row form .box {
+        height: 5rem;
+        width: 90%;
+        border: .1rem solid #eee;
+        padding: 0 1rem;
+        margin: 1rem 0;
+        font-size: 1.7rem;
+        color: #fff;
+        background: none;
+        text-transform: none;
+    }
+
+    .adminlog .row form .box:focus {
+        border-color: #f39c12;
+    }
+
+    .adminlog .row form .box::placeholder {
+        text-transform: capitalize;
+    }
+
+    .adminlog .row form .address {
+        height: 15rem;
+        padding: 1rem;
+        resize: none;
+        width: 100%;
+    }
+
+    .adminlog .row form .btn:hover {
+        background: #fff;
+        color: #333;
+    }
+
+    .adminlog .row .image img {
+        height: 60vh;
+        margin-top: 0.5rem;
+    }
+</style>
+{% ifequal error "no" %}
+<script>
+    alert('Logged In Successfully...');
+    window.location = ('{% url 'admin_home' %}')
+</script>
+{% endifequal %}
+{% ifequal error "yes" %}
+<script>
+    alert('Invalid Login Credentials, Try Again');
+</script>
+{% endifequal %}
+<section class="adminlog" id="adminlog">
+    <div class="container">
+        <h1 class="heading mt-5">Admin Login</h1>
+
+        <div class="row">
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="Enter Username" name="uname" class="box">
+                <input type="password" placeholder="Enter Password" name="pwd" class="box">
+                <div class="container">
+                    <input type="submit" class="btn btn-primary" value="LOGIN">
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
