@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<style>
+    * {
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+        text-decoration: none;
+        text-transform: capitalize;
+        transition: all .2s linear;
+    }
+
+    *::selection {
+        background: #f39c12;
+        color: #fff;
+    }
+
+
+    .signup {
+        background: #111;
+    }
+
+    .signup .heading {
+        color: #fff;
+    }
+
+    .signup .row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .signup .row form {
+        flex: 1 1 50rem;
+        background: #222;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+        align-items: flex-start;
+    }
+
+    .signup .row form .box {
+        height: 5rem;
+        width: 49%;
+        border: .1rem solid #eee;
+        padding: 0 1rem;
+        margin: 1rem 0;
+        font-size: 1.7rem;
+        color: #fff;
+        background: none;
+        text-transform: none;
+    }
+
+
+    .signup .row form .box:focus {
+        border-color: #f39c12;
+    }
+
+    .signup .row form .box::placeholder {
+        text-transform: capitalize;
+    }
+
+    .signup .row form .address {
+        height: 15rem;
+        padding: 1rem;
+        resize: none;
+        width: 100%;
+    }
+
+    .signup .row form .btn:hover {
+        background: #fff;
+        color: #333;
+    }
+
+    .signup .row .image img {
+        height: 70vh;
+        margin-top: 2rem;
+    }
+</style>
+{% ifequal error "no" %}
+<script>
+    alert('Signup Successfull');
+    window.location = ('{% url 'loginpage2' %}');
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
+<section class="signup" id="signup">
+    <div class="container">
+
+        <h1 class="heading">Candidate Signup Form</h1>
+        <div class="row">
+            <form method="post">
+                {% csrf_token %}
+
+                <input type="text" placeholder="Enter First Name" class="box" name="firstname" required>
+
+
+                <input type="text" placeholder="Enter Last Name" class="box" name="lastname" required>
+
+
+                <input type="number" placeholder="Enter Contact Number" class="box" name="contact" required>
+
+
+                <input type="email" placeholder="Enter Email Address" class="box" name="emailid" required>
+
+
+                <input type="password" placeholder="Password" class="box" name="password" required>
+
+                <hr>
+                <input type="submit" class="btn btn-primary mt-2" value="SUBMIT">
+            </form>
+
+        </div>
+    </div>
+
+</section>
+
+
+
+{% endblock body %}
+{% block footer%} {% endblock footer%}

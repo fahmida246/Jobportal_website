@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+<style>
+    .userlog {
+        background: #111;
+    }
+
+    .userlog .heading {
+        color: #fff;
+    }
+
+    .userlog .row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .userlog .row form {
+        flex: 1 1 50rem;
+        background: #222;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+        align-items: flex-start;
+    }
+
+    .userlog .row form .box {
+        height: 5rem;
+        width: 90%;
+        border: .1rem solid #eee;
+        padding: 0 1rem;
+        margin: 1rem 0;
+        font-size: 1.7rem;
+        color: #fff;
+        background: none;
+        text-transform: none;
+    }
+
+    .userlog .row form .box:focus {
+        border-color: #f39c12;
+    }
+
+    .userlog .row form .box::placeholder {
+        text-transform: capitalize;
+    }
+
+    .userlog .row form .address {
+        height: 15rem;
+        padding: 1rem;
+        resize: none;
+        width: 100%;
+    }
+
+    .userlog .row form .btn:hover {
+        background: #fff;
+        color: #333;
+    }
+
+    .userlog .row .image img {
+        height: 60vh;
+        margin-top: 1rem;
+    }
+
+    .userlog form p {
+        font-size: 1.4rem;
+        color: #666;
+        padding: .5rem 0;
+    }
+
+    .userlog form p a {
+        color: #f39c12;
+    }
+
+    .userlog form .btn {
+        width: 20%;
+        margin: 2rem 0;
+    }
+
+    .login-form form .fa-times {
+        position: absolute;
+        top: 1.5rem;
+        right: 2rem;
+        font-size: 2.5rem;
+        cursor: pointer;
+        color: #999;
+    }
+
+    .login-form form .fa-times:hover {
+        color: #444;
+    }
+</style>
+{% ifequal error "no" %}
+<script>
+    alert('Logged In Successfully...');
+    window.location = ('{% url 'profileforcandidate' %}');
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Invalid Login Credentials, Try Again');
+</script>
+{% endifequal %}
+<section class="userlog" id="userlog">
+    <div class="container">
+        <h1 class="heading mt-5">Candidate Login</h1>
+        <div class="row">
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="email" placeholder="Enter Email ID" name="emailid" class="box">
+                <input type="password" placeholder="Enter Password" name="pwd" class="box">
+                <p>don't have an account? <a href="{% url 'signin2' %}">register now</a></p>
+                <input type="submit" class="btn btn-primary" value="login">
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
+{% block footer%} {% endblock footer%}
